@@ -88,6 +88,7 @@
   <input id="nickname" type="text" maxlength="30" placeholder="名無し" autocomplete="off">
   <label for="passcode">合言葉</label>
   <input id="passcode" type="text" class="secret" autocomplete="off" autocapitalize="none" spellcheck="false">
+  <label class="check"><input id="showPass" type="checkbox">合言葉を表示する（入力中は、自動で表示されます）</label>
   <label class="check"><input id="useGeo" type="checkbox" checked>写真に位置情報があれば、コメントに使う（地名だけ保存・緯度経度は保存しません）</label>
   <div class="btns">
     <button class="ghost" id="closeSettings" type="button">キャンセル</button>
@@ -128,7 +129,11 @@ const store = {
 };
 const settings = { nick: store.get("nick"), pass: store.get("pass"), geo: store.get("geo") !== "0" };
 function fillSettings() { $("nickname").value = settings.nick; $("passcode").value = settings.pass; $("useGeo").checked = settings.geo; }
-function openSettings() { fillSettings(); $("settings").showModal(); }
+function applyMask() { $("passcode").classList.toggle("secret", !$("showPass").checked); }
+$("showPass").onchange = applyMask;
+$("passcode").addEventListener("focus", () => $("passcode").classList.remove("secret"));
+$("passcode").addEventListener("blur", applyMask);
+function openSettings() { fillSettings(); $("showPass").checked = false; applyMask(); $("settings").showModal(); }
 $("openSettings").onclick = openSettings;
 $("closeSettings").onclick = () => $("settings").close();
 $("saveSettings").onclick = () => {
