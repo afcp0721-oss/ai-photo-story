@@ -25,7 +25,7 @@ AIが書くコメントは、実際の出来事と違ったり、的外れだっ
 3. 入力欄が出たら、次の3つを入れる
    - `GEMINI_API_KEY`：Gemini の API キー
    - `PASSCODE`：投稿に必要な合言葉（好きな言葉）
-   - `DISCORD_WEBHOOK_URL`：Discord の投稿先チャンネルのウェブフック URL（空でも動きます）
+   - `DISCORD_WEBHOOK_URL`：Discord の投稿先チャンネルのウェブフック URL（Discord に投稿しないときは、`none` と入力）
 4. デプロイが終わったら、表示されたURLを開く
 
 データベースとテーブルは、自動で作られます。

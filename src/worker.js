@@ -140,8 +140,9 @@ async function createStory(request, env, ctx) {
     return json({ error: "保存に失敗しました" }, 500);
   }
 
-  if (env.DISCORD_WEBHOOK_URL) {
-    ctx.waitUntil(postToDiscord(env.DISCORD_WEBHOOK_URL, match[1], match[2], userName, persona, story, place));
+  const hook = String(env.DISCORD_WEBHOOK_URL || "").trim();
+  if (isDiscordWebhook(hook)) {
+    ctx.waitUntil(postToDiscord(hook, match[1], match[2], userName, persona, story, place));
   }
 
   return json({
@@ -189,6 +190,11 @@ export async function lookupPlace({ lat, lon }) {
   } catch {
     return null;
   }
+}
+
+// Discord のウェブフック URL だけに送る（「none」などの値や、他のURLには送らない）。
+function isDiscordWebhook(v) {
+  return /^https:\/\/(?:discord|discordapp)\.com\/api\/webhooks\/\d+\/[\w-]+$/.test(v);
 }
 
 function normalizePass(v) {

@@ -74,7 +74,7 @@ Cloudflare Workers（小さなプログラム）
 3. Cloudflare と GitHub にログインして、画面の案内に進む（自分の GitHub に、コピーが作られます）。
 4. 入力欄が出たら、次の3つを入れる。
    - `GEMINI_API_KEY`：ステップ2のキー
-   - `DISCORD_WEBHOOK_URL`：ステップ1のURL（空でも動きます）
+   - `DISCORD_WEBHOOK_URL`：ステップ1のURL（Discord に投稿しないときは、`none` と入力）
    - `PASSCODE`：投稿のときに入力する合言葉
 5. デプロイが終わったら、表示されたURLを開く。
 6. 「ステップ7：動かしてみる」に進む。

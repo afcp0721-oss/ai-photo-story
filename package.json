@@ -10,7 +10,7 @@
     "wrangler": "^4"
   },
   "cloudflare": {
-    "label": "AI Photo Story",
+    "label": "ai-photo-story",
     "products": ["Workers", "D1"]
   }
 }
