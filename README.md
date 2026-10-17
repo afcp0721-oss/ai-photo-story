@@ -52,3 +52,7 @@ AIが書くコメントは、実際の出来事と違ったり、的外れだっ
 - `GEMINI_MODEL`（テキスト・省略可）：既定は `gemini-flash-latest`
 
 秘密の情報は、コードや GitHub に絶対に書かないでください。詳しい手順は [作り方](docs/how-to-build.md) を見てください。
+
+## ライセンス
+
+[MIT License](LICENSE)（Copyright (c) 2026 Jiico）。自由に使ったり、改造したり、配ったりできます。著作権の表示とライセンス文を残してください。
