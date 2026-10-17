@@ -1,8 +1,5 @@
 # AI Photo Story
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/abc123/ai-photo-story)
-
-> 上のボタンは、`abc123` を自分の GitHub アカウント名に置き換えたリポジトリのURLで、使えます。
 
 写真を1枚選ぶと、AI（Gemini）がタイトル・ストーリー・ハッシュタグをつけてくれる、ちいさな写真SNSです。タイムラインに並び、Discord のチャンネルにも投稿されます。
 
@@ -18,24 +15,33 @@ AIが書くコメントは、実際の出来事と違ったり、的外れだっ
 - 投稿は合言葉で守る。合言葉が未設定のときは、投稿できない
 - Cloudflare Workers + D1 だけで動く（サーバー不要）
 
-## かんたんセットアップ（ボタンを押すだけ）
+## このアプリの考え方
 
-1. 上の「Deploy to Cloudflare」ボタンを押す
-2. Cloudflare と GitHub にログインして、画面の案内に進む
-3. 入力欄が出たら、次の3つを入れる
-   - `GEMINI_API_KEY`：Gemini の API キー
-   - `PASSCODE`：投稿に必要な合言葉（好きな言葉）
-   - `DISCORD_WEBHOOK_URL`：Discord の投稿先チャンネルのウェブフック URL（Discord に投稿しないときは、`none` と入力）
-4. デプロイが終わったら、表示されたURLを開く
+みんなで1つのサービスを使うのではなく、**自分用のものを、自分で作って動かす**アプリです。
 
-データベースとテーブルは、自動で作られます。
+- AI は、自分の Gemini の API キーで動きます（利用料は、自分の分だけです）。
+- 投稿は、自分の Discord チャンネルに届きます。
+- データは、自分の Cloudflare のデータベースに保存されます。
+
+作った人同士が、投稿を見せ合ったり、相談したりできる場所（Discord など）があると、もっと楽しくなります。
+
+## 作り方
+
+[docs/how-to-build.md](docs/how-to-build.md) に、初心者向けの全手順があります。大まかな流れは次のとおりです。
+
+1. Discord のウェブフックと、Gemini の API キーを用意する
+2. Cloudflare で D1 データベースを作り、そのIDを `wrangler.jsonc` に書く
+3. GitHub に上げて、Cloudflare の Worker として公開する
+4. Worker に、3つの秘密情報（Secrets）を入れる
+
+テーブルは、Worker が初回アクセスで自動で作ります。
 
 ## 構成
 
 - `public/index.html` : 画面（写真選択・設定・使い方・タイムライン）
 - `src/worker.js` : Cloudflare Worker（Gemini 呼び出し・D1 保存・Discord 投稿）
 - `schema.sql` : テーブル定義の控え（Worker が初回アクセスで自動作成します）
-- `wrangler.jsonc` : Worker の設定（データベースは自動で作られます）
+- `wrangler.jsonc` : Worker の設定（`database_id` は、自分の D1 のIDに書き換えます）
 - `.dev.vars.example` : 必要な秘密情報の名前の一覧（値は入れないでください）
 
 ## 必要な設定（Cloudflare の Worker → 設定 → 変数とシークレット）
