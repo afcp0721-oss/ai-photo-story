@@ -1,0 +1,5 @@
+.env
+.dev.vars
+*.db
+node_modules/
+.wrangler/
